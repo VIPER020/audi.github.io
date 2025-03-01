@@ -36,12 +36,11 @@
                     <li>📚 Currently studying at University of Science and Technology</li>
                     <li>💻 Learning Python, C, Java, HTML, CSS, and JavaScript</li>
                     <li>🕵 Exploring front-end and back-end development to become a full-stack developer</li>
-                    <li>🌐 Aspiring to have cybersecurity experiences.</li>
+                    <li>🌐 Aspiring to have a cybersecurity experiences.</li>
                 </ul>
             </section>
-            
             <section id="courses">
-                <h2>Courses</h2>
+                <h2>My Courses</h2>
                 <table border="1">
                     <thead>
                         <tr>
@@ -52,12 +51,11 @@
                             <th>Credit</th>
                         </tr>
                     </thead>
-                    <tbody id="courseTable">
-                        <!-- Courses will be loaded here -->
+                    <tbody id="courseTableBody">
+                        <!-- Courses will be dynamically inserted here -->
                     </tbody>
                 </table>
             </section>
-            
             <section id="contact">
                 <h2>Contact Me</h2>
                 <p>Facebook: Rafael A. Ladao</p>
@@ -66,25 +64,26 @@
             </section>
         </div>
     </div>
-    
     <script>
-        fetch('courses.json')
-            .then(response => response.json())
-            .then(data => {
-                const table = document.getElementById('courseTable');
-                data.courses.forEach(course => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${course.year_level}</td>
-                        <td>${course.sem}</td>
-                        <td>${course.code}</td>
-                        <td>${course.description}</td>
-                        <td>${course.credit}</td>
-                    `;
-                    table.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error loading courses:', error));
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('courses.json')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById("courseTableBody");
+                    data.courses.forEach(course => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${course.year_level}</td>
+                            <td>${course.sem}</td>
+                            <td>${course.code}</td>
+                            <td>${course.description}</td>
+                            <td>${course.credit}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error("Error loading courses.json:", error));
+        });
     </script>
 </body>
 </html>
