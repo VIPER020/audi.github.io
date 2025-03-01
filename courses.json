@@ -73,14 +73,14 @@
     {
      "year_level": "1st",
       "sem": "2nd",
-      "code": "MMW"
+      "code": "MMW",
       "description": "Mathematics in the Modern World",
       "credit": "5.00"
     },
     {
       "year_level": "1st",
       "sem": "2nd",
-      "code": "STS"
+      "code": "STS",
       "description": "Science, Technology and Society",
       "credit": "2.75"
     },
