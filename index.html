@@ -13,6 +13,7 @@
         <nav>
             <ul>
                 <li><a href="#about"><i class="bx bxs-user"></i> About Me</a></li>
+                <li><a href="#courses"><i class="bx bxs-book"></i> Courses</a></li>
                 <li><a href="#contact"><i class="bx bxs-contact"></i> Contact</a></li>
             </ul>
         </nav>
@@ -35,9 +36,28 @@
                     <li>📚 Currently studying at University of Science and Technology</li>
                     <li>💻 Learning Python, C, Java, HTML, CSS, and JavaScript</li>
                     <li>🕵 Exploring front-end and back-end development to become a full-stack developer</li>
-                    <li>🌐 Aspiring to have a cybersecurity experiences.</li>
+                    <li>🌐 Aspiring to have cybersecurity experiences.</li>
                 </ul>
             </section>
+            
+            <section id="courses">
+                <h2>Courses</h2>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Year Level</th>
+                            <th>Semester</th>
+                            <th>Course Code</th>
+                            <th>Description</th>
+                            <th>Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody id="courseTable">
+                        <!-- Courses will be loaded here -->
+                    </tbody>
+                </table>
+            </section>
+            
             <section id="contact">
                 <h2>Contact Me</h2>
                 <p>Facebook: Rafael A. Ladao</p>
@@ -46,5 +66,25 @@
             </section>
         </div>
     </div>
+    
+    <script>
+        fetch('courses.json')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('courseTable');
+                data.courses.forEach(course => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${course.year_level}</td>
+                        <td>${course.sem}</td>
+                        <td>${course.code}</td>
+                        <td>${course.description}</td>
+                        <td>${course.credit}</td>
+                    `;
+                    table.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error loading courses:', error));
+    </script>
 </body>
 </html>
