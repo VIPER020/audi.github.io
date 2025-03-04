@@ -36,7 +36,7 @@
                     <li>📚 Currently studying at University of Science and Technology</li>
                     <li>💻 Learning Python, C, Java, HTML, CSS, and JavaScript</li>
                     <li>🕵 Exploring front-end and back-end development to become a full-stack developer</li>
-                    <li>🌐 Aspiring to have a cybersecurity experiences.</li>
+                    <li>🌐 Aspiring to have cybersecurity experiences.</li>
                 </ul>
             </section>
             <section id="courses">
@@ -65,48 +65,44 @@
             </section>
         </div>
     </div>
- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch('courses.json')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById("courseTableBody");
-                
-                // Create and insert the search bar
-                const searchBar = document.createElement("input");
-                searchBar.setAttribute("type", "text");
-                searchBar.setAttribute("id", "searchBar");
-                searchBar.setAttribute("placeholder", "Search courses...");
-                tableBody.parentNode.insertBefore(searchBar, tableBody);
-
-                function loadCourses(courses) {
-                    tableBody.innerHTML = ""; // Clear previous entries
-                    courses.forEach(course => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                            <td>${course.year_level}</td>
-                            <td>${course.sem}</td>
-                            <td>${course.code}</td>
-                            <td>${course.description}</td>
-                            <td>${course.credit}</td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                }
-
-                loadCourses(data.courses); // Load initial table
-
-                searchBar.addEventListener("input", function() {
-                    const searchText = this.value.toLowerCase();
-                    const filteredCourses = data.courses.filter(course => 
-                        course.code.toLowerCase().includes(searchText) || 
-                        course.description.toLowerCase().includes(searchText)
-                    );
-                    loadCourses(filteredCourses);
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchBar = document.getElementById("searchBar");
+            const tableBody = document.getElementById("courseTableBody");
+            let coursesData = [];
+            
+            fetch('courses.json')
+                .then(response => response.json())
+                .then(data => {
+                    coursesData = data.courses;
+                    displayCourses(coursesData);
+                })
+                .catch(error => console.error("Error loading courses.json:", error));
+            
+            function displayCourses(courses) {
+                tableBody.innerHTML = "";
+                courses.forEach(course => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${course.year_level}</td>
+                        <td>${course.sem}</td>
+                        <td>${course.code}</td>
+                        <td>${course.description}</td>
+                        <td>${course.credit}</td>
+                    `;
+                    tableBody.appendChild(row);
                 });
-            })
-            .catch(error => console.error("Error loading courses.json:", error));
-    });
-</script>
+            }
+            
+            searchBar.addEventListener("input", function() {
+                const searchText = searchBar.value.toLowerCase();
+                const filteredCourses = coursesData.filter(course => 
+                    course.code.toLowerCase().includes(searchText) ||
+                    course.description.toLowerCase().includes(searchText)
+                );
+                displayCourses(filteredCourses);
+            });
+        });
+    </script>
 </body>
 </html>
